@@ -1,0 +1,14 @@
+package com.unisys.leida.ebis.sharedobjects.server.fact;
+
+import java.lang.Number;
+
+rule "QualityScoreMedium"
+	dialect "mvel"
+	no-loop true
+	ruleflow-group "qualityScore"
+	salience 10
+	when
+		qs : QualityScore( mbssScore >= 50 , poseAnglePitch >= ( -20 ) , poseAnglePitch <= 20 , poseAngleRoll >= ( -20 ) , poseAngleRoll <= 20 , poseAngleYaw >= ( -20 ) , poseAngleYaw <= 20 , sharpness >= 60 )
+	then
+		qs.setResult( "Medium" );
+end
