@@ -1,0 +1,16 @@
+package com.unisys.leida.ebis.sharedobjects.server.fact;
+
+import java.lang.Number;
+
+rule "QualityScoreGood"
+	dialect "mvel"
+	no-loop true
+	ruleflow-group "qualityScore"
+	salience 5
+	when
+		qs : QualityScore( mbssScore > 100 , sharpness > 80 , poseAnglePitch > ( -15 ) , poseAnglePitch < 15 , poseAngleRoll > ( -15 ) , poseAngleRoll < 15 , poseAngleYaw > ( -15 ) , poseAngleYaw < 15 )
+	then
+		modify( qs ) {
+				setResult( "Good" )
+		}
+end
